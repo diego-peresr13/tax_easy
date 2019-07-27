@@ -7,6 +7,17 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User, Group
 
 # Create your views here.
+class I002EmpresaViewSet(viewsets.ModelViewSet):
+
+    queryset = models.I002Empresa.objects.all()
+    serializer_class = serializers.I002EmpresaSerializer
+
+
+class I005FilialViewSet(viewsets.ModelViewSet):
+
+    queryset = models.I005Filial.objects.all()
+    serializer_class = serializers.I005FilialSerializer
+
 class I011UfViewSet(viewsets.ModelViewSet):
 
     queryset = models.I011Uf.objects.all()

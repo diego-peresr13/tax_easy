@@ -31,10 +31,13 @@ class I002Empresa(models.Model):
     class Meta:
         managed = False
         db_table = 'i002_empresa'
+    
+    def __str__(self):
+        return self.cod_empresa
 
 
 class I005Filial(models.Model):
-    id_empresa = models.ForeignKey(I002Empresa, models.DO_NOTHING, db_column='id_empresa')
+    empresa = models.ForeignKey(I002Empresa, related_name='filiais', on_delete=models.PROTECT)
     id_filial = models.BigIntegerField(primary_key=True)
     cod_filial = models.CharField(max_length=6)
     razao_social = models.CharField(max_length=60)
@@ -56,8 +59,9 @@ class I005Filial(models.Model):
     class Meta:
         managed = False
         db_table = 'i005_filial'
-        unique_together = (('id_filial', 'id_empresa'),)
 
+    def __str__(self):
+        return '%s: %s' % (self.cod_filial, self.razao_social)
 
 class I011Uf(models.Model):
     id_uf = models.BigIntegerField(primary_key=True)
@@ -82,6 +86,9 @@ class I012Municipio(models.Model):
         managed = False
         db_table = 'i012_municipio'
 
+    def __str__(self):
+        return self.cod_municipio
+
 
 class I013PlanoContas(models.Model):
     id_empresa = models.ForeignKey(I002Empresa, models.DO_NOTHING, db_column='id_empresa')
@@ -95,6 +102,9 @@ class I013PlanoContas(models.Model):
         managed = False
         db_table = 'i013_plano_contas'
         unique_together = (('cod_conta', 'id_empresa'),)
+
+    def __str__(self):
+        return self.cod_conta
 
 
 class I014Categoria(models.Model):
